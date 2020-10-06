@@ -59,6 +59,8 @@ http://kabu.com:9090/front/favoritelist/
 ```
 https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/favorite.png
 
+![気に入り銘柄](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/favorite.png)
+
 銘柄詳細
 ```
 http://kabu.com:9090/front/companyinfo/1811
