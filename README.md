@@ -57,6 +57,7 @@ docker-compose exec db bash
 ```
 http://kabu.com:9090/front/favoritelist/
 ```
+https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/favorite.png
 
 銘柄詳細
 ```
