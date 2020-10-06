@@ -68,5 +68,31 @@ http://kabu.com:9090/front/companyinfo/1811
 ![銘柄詳細](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/company_detail_01.png)
 ![銘柄詳細](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/company_detail_02.png)
 ![銘柄詳細](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/company_detail_03.png)
+
+### indicator
+日本-新屋開工
 ![銘柄詳細](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/company_detail_04.png)
 
+日経平均
+![日経平均](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/nik.png)
+
+worldinfo
+![日経平均](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/world-info.png)
+
+### backend
+news
+![news](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/daily_news%E5%88%86%E9%A1%9E.png)
+newsとタグ、銘柄紐付け
+![news](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/daily_news%E5%88%86%E9%A1%9E02.png)
+newsを中国語に翻訳
+![news](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/daily_news%E5%88%86%E9%A1%9E.png)
+
+### event
+![event](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/event-add.png)
+
+### SMTPメール
+daily mail summary
+![mail](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/smtp%E3%83%A1%E3%83%BC%E3%83%ABsumma.png)
+![mail](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/smtp%E3%83%A1%E3%83%BC%E3%83%ABsummay-gdp-all.png)
+![mail](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/smtp%E3%83%A1%E3%83%BC%E3%83%ABsummay-gdp.png)
+![mail](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/smtp%E3%83%A1%E3%83%BC%E3%83%ABsummay.png)
