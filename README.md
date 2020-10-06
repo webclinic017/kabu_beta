@@ -65,5 +65,8 @@ https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/favorite.pn
 ```
 http://kabu.com:9090/front/companyinfo/1811
 ```
-
+![銘柄詳細](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/company_detail_01.png)
+![銘柄詳細](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/company_detail_02.png)
+![銘柄詳細](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/company_detail_03.png)
+![銘柄詳細](https://github.com/zhanglizhu-tokyo/kabu_beta/blob/main/readme-image/company_detail_04.png)
 
