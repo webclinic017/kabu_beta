@@ -51,5 +51,10 @@ docker-compose exec web bash
 docker-compose exec db bash
 
 ```
----
+
+### Front
+気に入り銘柄
+http://kabu.com:9090/front/favoritelist/
+
+スクリーンショット 2020-10-06 22.15.21.png
 
