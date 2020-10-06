@@ -1,9 +1,9 @@
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'kabu',
-        'USER': 'dbuser',  # budokai#dbuser
-        'PASSWORD': 'dbpass',  # budokai#dbpass
+        'NAME': 'test',
+        'USER': 'test',  
+        'PASSWORD': 'test',
         'HOST': 'db',
         'PORT': '3306',
         'OPTIONS': {
