@@ -1,0 +1,70 @@
+{% load staticfiles %}
+{% include  'part/backend_jscss.html' %}
+<html>
+<title>company tag</title>
+<style>
+
+			a,a:active,a:hover,a:visited {
+		    text-decoration: none;
+		    color: #000
+			}
+	</style>
+<script>
+
+$(document).ready(function() {
+	//removefavorite
+	$('a.system-check').on('click',function(){
+	//var message ='本当に'+$(this).attr('newsid')+'checkしますね';
+	if(1){
+		//information
+		//ajax
+		$.ajax({
+		   type: "GET",
+		   url: "/backend/check/"+$(this).attr('newsid'),
+		   success: function(msg){
+		     console.log(msg);
+			 location.reload();
+		   }
+		 });
+
+	}else{
+
+	}
+});
+
+//
+});
+
+</script>
+<body>
+{% include  'part/backend_header.html' %}
+<div class="grid">
+<table class="table table-sm table-light">
+  <thead>
+    <tr>
+		<th scope="col">company</th>
+		<th scope="col">業界</th>
+		<th scope="col">関連事業</th>
+		<th>名前</th>
+		<th>address</th>
+		<th>built_date</th>
+		<th>monitor_flag</th>
+	</tr>
+  </thead>
+  <tbody>
+    {% for info in infolist %}
+		  <tr>
+			<td><a href="http://kabu.com:9090/front/companyinfo/{{ info.company_code }}">{{ info.company_code }}</a></td>
+			<td>{{ info.class_name }}</td>
+			<td>{{ info.related_bussiness }}</td>
+			<td style="color:red;">{{ info.company_name }}</td>
+			<td><a href="https://www.google.com/maps/search/?api=1&query={{ info.address}}&zoom=21">{{ info.address }}</a></td>
+			<td>{{ info.built_date }}</td>
+			<td>{{ info.monitor_flag }}</td>
+          </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<body>
+</html>

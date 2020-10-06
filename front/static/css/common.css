@@ -1,0 +1,14 @@
+.diff-before{
+	background-color: aqua;
+	padding:8px;
+
+}
+.diff-after{
+	background-color: blueviolet;
+	padding:8px;
+}
+
+.diff-result{
+	padding:8px;
+}
+

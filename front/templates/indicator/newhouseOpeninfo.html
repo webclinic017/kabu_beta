@@ -1,0 +1,157 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>株詳細</title>
+	<script src="http://mleibman.github.io/SlickGrid/lib/jquery-1.7.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.css" type="text/css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.js"></script>
+	<script src="{% static '/js/mytable.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'css/mytable.css' %}" type="text/css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+</head>
+<style type="text/css">
+.s{
+  /*リンクテキストのスタイルです*/
+  color: red;
+  text-decoration: none;
+  position: relative;
+}
+
+.s-balloon {
+  /*バルーンのスタイルです*/
+
+  /*表示位置を指定します*/
+  position: absolute;
+  top: -30px;
+  left: 100px;
+
+  /*非表示にしておきます*/
+  display: none;
+  opacity: 0;
+
+  /*表示スタイルを指定します*/
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  /*影をつけて見栄えを良くします*/
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 1px 0 0 rgba(255, 255, 255, 0.3),
+    inset -1px 0 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+
+  /*アニメーションを指定します*/
+  animation-duration: 0.3s;
+  animation-name: show-balloon;
+}
+
+.s:hover .s-balloon {
+  /*マウスホバー時のバルーンのスタイルです*/
+
+  /*表示するようにします*/
+  display: inline-block;
+  opacity: 1;
+  top: -40px;
+}
+
+
+
+@keyframes show-balloon {
+  /*アニメーションを定義します*/
+  0% {
+    display: none;
+    opacity: 0;
+    top: -30px;
+  }
+  1% {
+    display: inline-block;
+    opacity: 0;
+    top: -30px;
+  }
+  100% {
+    display: inline-block;
+    opacity: 1;
+    top: -40px;
+  }
+}
+</style>
+<body>
+{% include  'part/header.html' %}
+	<h3>日本-新屋開工</h3>
+	<canvas id="openhouseinfo"  style="display: block; height: 690px; width: 100%;"></canvas>
+
+	<center><input type="button" name="10years" value="10years" onclick="changemonth(-120)">
+	<input type="button" name="5year" value="5year" onclick="changemonth(-60)">
+	<input type="button" name="3year" value="3year" onclick="changemonth(-36)">
+	<input type="button" name="1year" value="1year" onclick="changemonth(-12)">
+	<input type="button" name="rollback" value="rollback" onclick="rollback()">
+	</center>
+
+	<div>
+</body>
+<script>
+	var newhousecount_a	={{ newhousecount_a|safe }}
+	var newhousecount_b	={{ newhousecount_b|safe }}
+	var newhousecount_c	={{ newhousecount_c|safe }}
+	var date			={{ date|safe }}
+	var newhousecountctx= document.getElementById('openhouseinfo').getContext('2d');
+	var newhousecountcanvs 	= new Chart(newhousecountctx, {
+	    type: 'line',
+	    data: {
+	        labels: date,
+	        datasets: [
+		        	{
+			        	label: 'Ａ居住専用住宅',
+			            data: newhousecount_a,
+			            borderColor: 'rgb(255, 0, 0)',
+			            yAxisID: "y-axis-1",
+			        	},
+					{
+			        	label: 'Ｂ居住専用準住宅',
+			            data: newhousecount_b,
+			            borderColor: 'rgb(255, 127, 0)',
+			            yAxisID: "y-axis-1",
+			        	},
+					{
+			        	label: 'Ｃ居住産業併用建築物',
+			            data: newhousecount_c,
+			            borderColor: 'rgb(0, 255, 0)',
+			            yAxisID: "y-axis-1",
+			        	},
+	        ],
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+                    id: "y-axis-1",
+                    type: "linear",
+                    position: "left",
+
+                },
+
+	        ],
+
+	        }
+	    }
+	});
+
+	function changemonth(day){
+		newhousecountcanvs.config.data.datasets[0].data	=newhousecount_a.slice(day)
+		newhousecountcanvs.config.data.datasets[1].data	=newhousecount_b.slice(day)
+		newhousecountcanvs.config.data.datasets[2].data	=newhousecount_c.slice(day)
+		newhousecountcanvs.config.data.labels			=date.slice(day)
+		newhousecountcanvs.update();
+	}
+
+	function rollback(){
+
+		newhousecountcanvs.config.data.datasets[0].data	=newhousecount_a
+		newhousecountcanvs.config.data.datasets[1].data	=newhousecount_b
+		newhousecountcanvs.config.data.datasets[2].data	=newhousecount_c
+		newhousecountcanvs.config.data.labels			=date
+		newhousecountcanvs.update();
+	}
+</script>
+</html>

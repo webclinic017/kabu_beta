@@ -1,0 +1,46 @@
+{% load staticfiles %}
+{% include  'part/backend_jscss.html' %}
+<html>
+<title>company list</title>
+<style>
+
+			a,a:active,a:hover,a:visited {
+		    text-decoration: none;
+		    color: #000
+			}
+	</style>
+
+<body>
+{% include  'part/backend_header.html' %}
+	<div class="grid-container">
+		<table class="table table-sm table-info">
+			<thead>
+				<tr class="header">
+				<th>CODE</th>
+				<th>業界</th>
+				<th>関連事業</th>
+				<th>名前</th>
+				<th>address</th>
+				<th>built_date</th>
+				<th>monitor_flag</th>
+				<th>ADD TO FAVORITE</th>
+				</tr>
+			</thead>
+			<tbody>
+			 {% for info in resultlist %}
+		          <tr>
+					<td><a href="{% if info.monitor_flag is not None %}/backend/showtagviaCompanycode/{{ info.company_code }}{% else %}/front/getnik/{{ info.company_code }}{% endif %}" target=" _blank">{{ info.company_code }}</a></td>
+					<td>{{ info.class_name }}</td>
+					<td>{{ info.related_bussiness }}</td>
+					<td><a href="http://kabu.com:9090/front/companyinfo/{{ info.company_code }}">{{ info.company_name }}</a></td>
+					<td><a href="https://www.google.com/maps/search/?api=1&query={{ info.address}}&zoom=21">{{ info.address }}</td>
+					<td>{{ info.built_date }}</td>
+					<td>{{ info.monitor_flag }}</td>
+					<td><a href="/front/addtofavorite/{{ info.company_code }}">ADD TO FAVORITE</a></td>
+		          </tr>
+		        {% endfor %}
+			</tbody>
+		</table>
+	</div>
+<body>
+</html>

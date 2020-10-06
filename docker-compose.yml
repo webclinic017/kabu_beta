@@ -1,0 +1,37 @@
+version: '2'
+services:
+  web:
+     build:
+       context: .
+       dockerfile: ./image/Dockerfile
+     container_name: python_web
+     depends_on:
+     - db
+     volumes:
+      - .:/var/www/html/kabu_beta
+     environment:
+      DB_USERNAME: "dbuser"
+      DB_PASSWORD: "dbpass"
+      DB_HOST: "db"
+     links:
+      - "db"
+     ports:
+      - "9090:80"
+     mem_limit: 1g
+  db:
+    image: mysql:5.6
+    restart: always
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: kabu
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: dbpass
+    volumes:
+      - ./image/db/kabu_beta.sql:/tmp/kabu_beta.sql
+      - ./image/db/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./image/db/my-datavolume:/var/lib/mysql
+    expose:  
+       - "3306"
+    ports:
+      - "48306:3306"

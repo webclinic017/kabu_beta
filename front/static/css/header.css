@@ -1,0 +1,12 @@
+.header-first{
+	float:left;width	: 50%;
+	text-align		: center;
+	background-color	: red;
+}
+.header-second{
+	display			:none;
+}
+
+#html{
+	padding:8px
+}

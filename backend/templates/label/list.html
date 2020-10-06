@@ -1,0 +1,72 @@
+{% load staticfiles %}
+{% include  'part/backend_jscss.html' %}
+<html>
+
+<style>
+			th div{
+			position: absolute;
+			background: transparent;
+			color: #fff;
+			padding: 9px 25px;
+			top: 0;
+			margin-left: -25px;
+			line-height: normal;
+			border-left: 1px solid #800;
+			}
+			a,a:active,a:hover,a:visited {
+		    text-decoration: none;
+		    color: #000
+			}
+	</style>
+<script>
+
+$(document).ready(function() {
+	//removefavorite
+	$('a.system-check').on('click',function(){
+	//var message ='本当に'+$(this).attr('newsid')+'checkしますね';
+	if(1){
+		//information
+		//ajax
+		$.ajax({
+		   type: "GET",
+		   url: "/backend/check/"+$(this).attr('newsid'),
+		   success: function(msg){
+		     console.log(msg);
+			 location.reload();
+		   }
+		 });
+
+	}else{
+
+	}
+});
+
+//
+});
+
+</script>
+<body>
+{% include  'part/backend_header.html' %}
+<div class="grid">
+<table class="table table-sm table-warning">
+  <thead>
+		<tr class="header">
+		<th>Lable ID</th>
+		<th>Lable NAME</th>
+		<th>Trend</th>
+		</tr>
+	</thead>
+  <tbody>
+	 {% for info in resultlist %}
+          <tr>
+			<td>{{ info.label_id }}</td>
+			<td>{{ info.label_name }}</td>
+			<td><a href="/backend/showNewsAggregateVialabel/{{ info.label_id }}">Trend</a></td>
+          </tr>
+        {% endfor %}
+	</tbody>
+</table>
+</div>
+
+<body>
+</html>

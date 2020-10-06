@@ -1,0 +1,264 @@
+<html>
+{% include  'part/backend_jscss.html' %}
+<title>{{ detailinfo.title }}</title>
+<style>
+	.head{
+    font-size: 15pt;
+    line-height: 150%;
+
+    font-weight: bold;
+    color: #ec6443;
+	}
+	.tags{
+		display:table-cell;
+	}
+	.tag-detail{
+		width:fit-content;
+		margin:10px;
+		background-color:#a4ff7f;
+		display:inline-block;
+	}
+	.system-label{
+
+	}
+	.news-content{
+		margin-left:1%;
+		color:darkblue
+	}
+	.side-bar{
+		width:50%;
+		float:right;
+	}
+	.detail{
+		width:50%;
+	}
+	body{
+		padding:2%;
+
+	}
+	.side-bar{
+		background:#E7F1ED;
+	}
+	.sidebar-item{
+		padding:2%
+	}
+	.detail-info{
+		display:table;
+	}
+	.label{
+		display:inline-block;;
+		width:fit-content;
+		background-color:#ca483b;
+	}
+	.info-item{
+
+	}
+	.company-item{
+		display:inline-block;;
+		width:fit-content;
+
+		margin:10px;
+		background:yellow;
+	}
+	a,a:active,a:hover,a:visited {
+	    text-decoration: none;
+	    color: #000
+	}
+	.close_modal {
+    position: relative;
+    top: 0;
+    right: 0;
+	}
+	.company{
+		display:inline-block;;
+	}
+</style>
+<script>
+$(document).ready(function() {
+	//company
+	$('.company_code').on("click",function(){
+		var url= '/backend/addcompany/';
+        var newsid = $('.system-company [name=newsid]').val();
+        var company_code = $(this).val();
+		var csrf		 = $('.system-company [name=csrfmiddlewaretoken]').val();
+		$.ajax({
+		   type: "POST",
+		   url: url,
+		  data: { 'newsid':newsid, 'company_code':company_code ,"csrfmiddlewaretoken":csrf},
+		   success: function(msg){
+		     console.log(msg);
+
+		   }
+		 });
+
+	});
+	//label
+	$('.label_button').on("click",function(){
+		var url= '/backend/addlabel/';
+        var newsid = $('.system-label [name=newsid]').val();
+        var label  = $('.system-label [name=label]:checked').val();
+		var csrf   = $('.system-label [name=csrfmiddlewaretoken]').val();
+		$.ajax({
+		   type: "POST",
+		   url: url,
+		  data: { 'newsid':newsid, 'label':label ,"csrfmiddlewaretoken":csrf},
+		   success: function(msg){
+		     console.log(msg);
+			location.reload();
+		   }
+		 });
+	});
+
+	var add_tag=function(){
+		var url= '/backend/addtag/';
+        var newsid = $('.system-tag [name=newsid]').val();
+        var tagname  = $(this).val();
+		var csrf   = $('.system-tag [name=csrfmiddlewaretoken]').val();
+		$.ajax({
+		   type: "POST",
+		   url: url,
+		  data: { 'newsid':newsid, 'tagname':tagname ,"csrfmiddlewaretoken":csrf},
+		   success: function(msg){
+		     console.log(msg);
+
+		   }
+		 });
+	}
+	//tag
+	$('.tag_button').on("click",add_tag);
+	$('.tag_filed').on("dblclick",add_tag);
+
+	//一括追加
+	$('.add_company_tag').on("click",function(){
+		$('.tag_button').click();
+		$('.company_code').click();
+
+	});
+
+	$('.delete_tag').on("click",function(){
+		var tagid	=	$(this).attr('tagid');
+		var newsid	=   {{ detailinfo.news_id }};
+		var csrf   = $('.system-tag [name=csrfmiddlewaretoken]').val();
+
+		var url ='/backend/removetag/';
+		$.ajax({
+		   type: "POST",
+		   url: url,
+		  data: { 'tagid':tagid, 'newsid':newsid ,"csrfmiddlewaretoken":csrf},
+		   success: function(msg){
+		     console.log(msg);
+			location.reload();
+		   }
+		 });
+
+	});
+
+	$('.delete_company').on("click",function(){
+		var companycode	=	$(this).attr('companycode');
+		var newsid	=   {{ detailinfo.news_id }};
+		var csrf   = $('.system-tag [name=csrfmiddlewaretoken]').val();
+
+		var url ='/backend/removecompany/';
+		$.ajax({
+		   type: "POST",
+		   url: url,
+		  data: { 'companycode':companycode, 'newsid':newsid ,"csrfmiddlewaretoken":csrf},
+		   success: function(msg){
+		     console.log(msg);
+			location.reload();
+		   }
+		 });
+
+	});
+
+
+
+	});
+
+
+
+</script>
+<body>
+{% include  'part/backend_header.html' %}
+	<h1 class="head">{{ detailinfo.title }}</h1>
+	<div class="detail-info">
+		<div class="tags info-item">
+			{% for tag in relates_tags %}
+		    <div class="tag-detail"  tagid={{ tag.tag_id }}>
+				<div class="close_modal">
+					<a href="javascript:void(0);" style="color:red;" class="delete_tag" tagid={{ tag.tag_id }}>✕</a>
+					<a href="/backend/showtagnews/{{ tag.tag_id }}/" >{{ tag.tag_name }}</a>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="label info-item">
+			<div class="label-detail" tagid={{ relates_babel.label_id }}>{{ relates_babel.label_name }}</div>
+		</div>
+		<div class="company">
+			{% for relate_com in relates_company %}
+				<div class="company-detail company-item" code={{ relate_com.code }}>
+					<div class="close_modal">
+					<a href="javascript:void(0);" style="color:red;" class="delete_company" companycode={{ relate_com.code }}>✕</a>
+					<a href="/front/companyinfo/{{  relate_com.code  }}">{{ relate_com.code }}</a>
+					</div>
+				</div>
+			{% endfor %}
+
+		</div>
+	</div>
+	<div class="side-bar">
+		<div>
+			<div class="add-tag sidebar-item system-tag">
+				<div>タグ</div>
+					<input type="text" autocomplete="on" list="tags" name="tagname" class="tag_filed">
+					<input type="hidden" value="{{ detailinfo.news_id }}" name="newsid">
+					{% csrf_token %}
+				<datalist id="tags">
+					{% for tag in tags %}
+						<option value="{{ tag.tag_name }}">
+					{% endfor %}
+				</datalist><br>
+				</div>
+		</div>
+		<div class="sidebar-item">
+			{% for tag in possible_tag %}
+				<input type="button" value="{{ tag }}" class="tag_button">
+			{% endfor %}
+		</div>
+
+
+		<div class="system-label sidebar-item system-label">
+			<div>ラベル</div>
+			<input type="radio" value=1 text="Positive" name="label" class="label_button">Positive
+			<input type="radio" value=2 text="neutral" name="label" class="label_button">Neutral
+			<input type="radio" value=3 text="negative" name="label" class="label_button">Negative
+			<input type="hidden" value="{{ detailinfo.news_id }}" name="newsid">
+
+			{% csrf_token %}
+		</div>
+		<div class="system-label sidebar-item system-company">
+			<div>銘柄</div>
+			<input type="text"  name="company_code" class="company_code">
+			<input type="hidden" value="{{ detailinfo.news_id }}" name="newsid">
+			{% csrf_token %}
+		</div>
+		<div class="sidebar-item">
+			{% for company in possible_company %}
+			<input type="button" value="{{ company }}" class="company_code">
+			{% endfor %}
+		</div>
+		<div class="sidebar-item">
+			<input type="button" value="一括追加" class="add_company_tag">
+		</div>
+	</div>
+	<div class="detail">
+		<div class="news-content">
+			{{ detailinfo.detail| linebreaksbr  }}
+		</div>
+		<div style="background-color:bisque;padding:10px;margin-top:5%">
+		{{ translate_content | linebreaksbr }}
+		</div>
+	</div>
+</body>
+</html>

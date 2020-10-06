@@ -1,0 +1,66 @@
+{% load staticfiles %}
+{% include  'part/backend_jscss.html' %}
+<html>
+<title>関連タグとnews</title>
+<style>
+		a,a:active,a:hover,a:visited {
+	    text-decoration: none;
+	    color: #000
+		}
+	</style>
+<script>
+$(document).ready(function() {
+	//removefavorite
+	$('a.system-check').on('click',function(){
+	var message ='本当に'+$(this).attr('newsid')+'checkしますね';
+	if(window.confirm(message)){
+		//information
+		//ajax
+		$.ajax({
+		   type: "GET",
+		   url: "/backend/check/"+$(this).attr('newsid'),
+		   success: function(msg){
+		     console.log(msg);
+
+		   }
+		 });
+
+	}else{
+
+	}
+});
+
+//
+});
+
+</script>
+<body>
+{% include  'part/backend_header.html' %}
+<div style="color:red;">タグ : {{ tagname }}</div>
+<div class="grid">
+<table class="table table-sm table-Info">
+  <thead>
+    <tr >
+		<th>NEWS ID</th>
+		<th>タイトル</th>
+		<th>内容</th>
+		<th>action</th>
+		<th>取込日</th>
+	</tr>
+  </thead>
+  <tbody>
+	 {% for info in infolist %}
+          <tr>
+			<td>{{ info.news_id }}</td>
+			<td><a href="{{ info.url }}" target=" _blank">{{ info.title }}</a></td>
+			<td>{{ info.description }}</td>
+			<td><a class="system-addmemo" href="/backend/showdetail/{{ info.news_id }}/">Add Memo</a></td>
+			<td>{{ info.create_date|date:"Y-m-d" }}</td>
+          </tr>
+        {% endfor %}
+	</tbody>
+</table>
+</div>
+<div><img src="{{ wc_img }}" alt="{{ tagname }}"></div>
+</body>
+</html>

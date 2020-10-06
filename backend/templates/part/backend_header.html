@@ -1,0 +1,140 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/backend_header.css' %}" type="text/css"/>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
+<section style="display:inline-flex;width:100%">
+	<section class="header-first">
+		<a href="javascript:void(0);">リスト</a>
+
+		<section  class="header-second">
+			<a href="/backend/showjpinfo/" class="second">ニュースリスト</a>
+		</section>
+		<section  class="header-second">
+			<a href="/backend/showtaglist/" class="second">タグリスト</a>
+		</section>
+		<section  class="header-second">
+			<a href="/backend/showtagkubunlist/" class="second">タグ区分リスト</a>
+		</section>
+		<section  class="header-second">
+			<a href="/backend/showcompanylist/" class="second">銘柄リスト</a>
+		</section>
+		<section  class="header-second">
+			<a href="/backend/showLabellist/" class="second">ラベルリスト</a>
+		</section>
+		<section  class="header-second">
+			<a href="/backend/addnewcompany/" class="second">addnewcompany</a>
+		</section>
+	</section>
+
+	<section  class="header-first">
+		<a href="javascript:void(0);">マスタ</a>
+		<section  class="header-second">
+			<a href="/backend/showeventlist/">イベントマスタ</a>
+		</section>
+		<section  class="header-second">
+			<a href="/backend/showmonthnewsinfo/">今月news</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getworldinfo/">world-info</a>
+		</section>
+	</section>
+
+	<section  class="header-first">
+		<a href="javascript:void(0);">集計</a>
+		<section  class="header-second">
+			<a href="/front/showcorrelation/">showcorrelation（相关性）</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getDailySummary/">Daily サマリー</a>
+		</section>
+	</section>
+	<section  class="header-first">
+		<a href="javascript:void(0);">動作</a>
+		<section  class="header-second">
+			<a href="javascript:void(0);" class="system-addmemo">メモ追加</a>
+		</section>
+		<section  class="header-second">
+			<a href="javascript:void(0);" class="system-addevent">イベント追加</a>
+		</section>
+		<section  class="header-second">
+			<a href="/backend/getjpkabuinfo/" class="">ニュース追加</a>
+		</section>
+		<section  class="header-second">
+			<a href="/backend/showsearchnews/" class="">ニュース検索</a>
+		</section>
+	</section>
+
+	<section  class="header-first">
+		<a href="javascript:void(0);">検索機能</a>
+		<section  class="header-second">
+			<a href="/backend/">news検索</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/">銘柄検索</a>
+		</section>
+	</section>
+	<div class="event-form" style="display:none;">
+		<form action="/backend/addevent/" method="post">
+			<div>
+				<div class="event-element">イベント名</div>
+				<div><input name="event_name"></div>
+			</div>
+			<div>
+				<div class="event-element">開始日</div>
+				<div><input name="event_startdate"></div>
+			</div>
+			<div>
+				<div class="event-element">終了日</div>
+				<div><input name="event_enddate"></div>
+			</div>
+			{% csrf_token %}
+			<div class="event-button">
+				<input class="add-event" type="button" name="add-event" value="送信">
+				<input class="close-event" type="button" name="close-event" value="閉じる">
+			</div>
+		</form>
+	</div>
+</section>
+
+<script>
+$(document).ready(function() {
+	$('.header-first').on('click',function(){
+		var obj = $(this).find('.header-second');
+		if ( obj.css('display') == 'none'){
+			obj.show('slow');
+		}else{
+			obj.hide('slow');
+		}
+
+	});
+	//event 表示する
+	$('.system-addevent').on('click',function(){
+		$('.event-form').show(20);
+	});
+	//eventを閉じる
+	$('.close-event').on('click',function(){
+		$('[name=event_name]').val("")
+		$('[name=event_startdate]').val("")
+		$('[name=event_enddate]').val("")
+
+		$('.event-form').hide(20);
+	});
+
+	$("[name=event_startdate]").datepicker({format: "yyyy/mm/dd",language: "ja",autoclose: true, });
+	$("[name=event_enddate]").datepicker({format: "yyyy/mm/dd",language: "ja",autoclose: true, });
+
+
+
+//$("[name=news_start_date]").datetimepicker();
+
+	$('.add-event').on('click',function(){
+		var eventname		=	$('[name=event_name]').val()
+		var eventstartdate	=	$('[name=event_startdate]').val()
+		var eventenddate	=	$('[name=event_enddate]').val()
+		if(eventname.length >0 && eventstartdate.length >0 && eventenddate.length >0){
+				$('.event-form form').submit();
+		}
+	})
+});
+</script>

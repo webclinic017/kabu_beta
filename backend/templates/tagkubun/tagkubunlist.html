@@ -1,0 +1,125 @@
+{% load staticfiles %}
+<html>
+     <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<title>タグ区分リスト</title>
+<style>
+		.grid {
+			position: relative;
+			border: 1px solid #000;
+			padding-top: 37px;
+			background: #B34C00;
+			width:100%;
+			}
+			.grid-container {
+			overflow-y: auto;
+
+			}
+			table {
+			border-spacing: 0;
+			width:100%;
+			}
+			td + td {
+			border-left:1px solid #000;
+			}
+			td, th {
+			border-bottom:1px solid #000;
+			background: #fff;
+			color: #000;
+			padding: 10px 25px;
+			}
+			th {
+			height: 0;
+			line-height: 0;
+			padding-top: 0;
+			padding-bottom: 0;
+			color: transparent;
+			border: none;
+			white-space: nowrap;
+			}
+			th div{
+			position: absolute;
+			background: transparent;
+			color: #fff;
+			padding: 9px 25px;
+			top: 0;
+			margin-left: -25px;
+			line-height: normal;
+			border-left: 1px solid #800;
+			}
+			a,a:active,a:hover,a:visited {
+		    text-decoration: none;
+		    color: #000
+			}
+			.tagkubu{
+				margin-top:20px;
+				border:black;
+				border-style:groove;
+			}
+			.tag-item{
+				margin:20px;
+			}
+	</style>
+<script>
+$(document).ready(function() {
+	//removefavorite
+	$('a.system-check').on('click',function(){
+	var message ='本当に'+$(this).attr('newsid')+'checkしますね';
+	if(window.confirm(message)){
+		//information
+		//ajax
+		$.ajax({
+		   type: "GET",
+		   url: "/backend/check/"+$(this).attr('newsid'),
+		   success: function(msg){
+		     console.log(msg);
+
+		   }
+		 });
+
+	}else{
+
+	}
+});
+
+//
+});
+
+</script>
+<body>
+{% include  'part/backend_header.html' %}
+<div class="grid">
+	<div class="grid-container">
+		<table>
+			<thead>
+				<tr class="header">
+				<th>tag区分 id<div>tag区分 id</div></th>
+				<th>tag区分 content<div>tag content</div></th>
+				</tr>
+			</thead>
+			<tbody>
+			 {% for info in tagkubunlist %}
+		          <tr>
+					<td>{{ info.id }}</td>
+					<td><a href="{{ info.url }}" target=" _blank">{{ info.name }}</a></td>
+		          </tr>
+		        {% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="tagkubu">
+	<form method="post" action="/backend/addkubuninfo/">
+		<div class="tag-item">
+			区分名<input name="tagkubun_name">
+		</div>
+		{% csrf_token %}
+		<div class="tag-item">
+			<input type="submit" text="送信">
+		</div>
+	</form>
+</div>
+<body>
+</html>

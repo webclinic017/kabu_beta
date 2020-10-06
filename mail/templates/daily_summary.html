@@ -1,0 +1,522 @@
+<html>
+<head>
+  <title>Recovery Email Template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!--[if !mso]><!-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--<![endif]-->
+  <style type="text/css">
+    .ReadMsgBody {
+      width: 100%;
+      background-color: #fef8f7;
+    }
+
+    .ExternalClass {
+      width: 100%;
+      background-color: #fef8f7;
+    }
+
+    body {
+      width: 100%;
+      background-color: #fef8f7;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      font-family: Arial, Times, serif;
+    }
+
+    table {
+      border-collapse: collapse !important;
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+  </style>
+  <!--[if gte mso 15]>
+  <style type="text/css">
+  table { font-size:1px; line-height:0px; mso-margin-top-alt:1px; mso-line-height-rule:exactly; }
+  * { mso-line-height-rule:exactly; }
+  </style>
+  <![endif]-->
+</head>
+
+<body marginwidth="0" marginheight="0" leftmargin="0" rightmargin="0" topmargin="0" style="background-color:#fef8f7; font-family:Arial,serif; margin:0; padding:0; width:100%;min-width:100%; -webkit-text-size-adjust:none; -ms-text-size-adjust:none;">
+  <!--[if !mso]>
+  <img class="recovery-hidden-mobile" src="https://www.cart-recovery.jp/assets/images/email/spacer.gif" width="100%" height="1" style="min-width:100%px; display:block; margin:0; padding:0;">
+  <![endif]-->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7" style="max-width: 640px; margin: 0 auto;">
+    <tbody>
+      <tr>
+        <td align="center" valign="top">
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td align="center" valign="top">
+                  <p style="font-size:11px; color: #4d4d4d; font-family: 'メイリオ', Meiryo,  'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; margin:30px 0 0; line-height:23px;">画像が正しく表示されない方は
+                  <a href="" style="color: #4d4d4d">こちら</a>をクリックしてください
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+<!--日のランク-->
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+                  <table border="0" cellspacing="0" cellpadding="0" style="background-color: #fef8f7;">
+                    <tbody>
+                      <tr>
+                        <td style="line-height: 0;"><a href="{{ dailysummary.company_codelist.0 }}">
+
+						<img src="https://images-na.ssl-images-amazon.com/images/I/71qI2jhNt5L._AC_SX522_.jpg" style="width: 100%;"></a>
+						</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+                  <a href="{{ dailysummary.company_codelist.1 }}">
+
+                  <!--<img src="https://image.itmedia.co.jp/news/articles/2003/04/mm_ando_ai_01.jpg" style="width: 100%;"></a>-->
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top">
+					        <p style="line-height:32px; font-size:28px; font-family:'TsukuGoPro R','Hiragino Kaku Gothic ProN','メイリオ', Meiryo,sans-serif; margin:15px 0px 0px 0px; color: #4d4d4d;">日次サマリー<br><br></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+
+                  <!--<img src="new_arrival.png" style="width: 100%;">-->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+	<p>高値から下がるランク</p>
+	<ul class="list-group">
+		  <li class="list-group-item active"><a href="https://www.nikkei.com/smartchart/?code={{ dailysummary.company_codelist.0 }}&timeframe=10y&interval=1Month&upperIndicators=none&lowerIndicators=volume&eventsShow=0">{{ dailysummary.companyname_list.0 }}</a><div style="float:right;margin-left:10px">{{ dailysummary.rate_list.0 }}%</div></li>
+		  <li class="list-group-item"><a href="https://www.nikkei.com/smartchart/?code={{ dailysummary.company_codelist.1 }}&timeframe=10y&interval=1Month&upperIndicators=none&lowerIndicators=volume&eventsShow=0">{{ dailysummary.companyname_list.1 }}</a><div style="float:right;margin-left:10px">{{ dailysummary.rate_list.1 }}%</div></li>
+		  <li class="list-group-item"><a href="https://www.nikkei.com/smartchart/?code={{ dailysummary.company_codelist.2 }}&timeframe=10y&interval=1Month&upperIndicators=none&lowerIndicators=volume&eventsShow=0">{{ dailysummary.companyname_list.2 }}</a><div style="float:right;margin-left:10px">{{ dailysummary.rate_list.2 }}%</div></li>
+		  <li class="list-group-item"><a href="https://www.nikkei.com/smartchart/?code={{ dailysummary.company_codelist.3 }}&timeframe=10y&interval=1Month&upperIndicators=none&lowerIndicators=volume&eventsShow=0">{{ dailysummary.companyname_list.3 }}</a><div style="float:right;margin-left:10px">{{ dailysummary.rate_list.3 }}%</div></li>
+		  <li class="list-group-item"><a href="https://www.nikkei.com/smartchart/?code={{ dailysummary.company_codelist.4 }}&timeframe=10y&interval=1Month&upperIndicators=none&lowerIndicators=volume&eventsShow=0">{{ dailysummary.companyname_list.4 }}</a><div style="float:right;margin-left:10px">{{ dailysummary.rate_list.4 }}%</div></li>
+		  <li class="list-group-item"><a href="https://www.nikkei.com/smartchart/?code={{ dailysummary.company_codelist.5 }}&timeframe=10y&interval=1Month&upperIndicators=none&lowerIndicators=volume&eventsShow=0">{{ dailysummary.companyname_list.5 }}</a><div style="float:right;margin-left:10px">{{ dailysummary.rate_list.5 }}%</div></li>
+		  <li class="list-group-item"><a href="https://www.nikkei.com/smartchart/?code={{ dailysummary.company_codelist.6 }}&timeframe=10y&interval=1Month&upperIndicators=none&lowerIndicators=volume&eventsShow=0">{{ dailysummary.companyname_list.6 }}</a><div style="float:right;margin-left:10px">{{ dailysummary.rate_list.6 }}%</div></li>
+		  <li class="list-group-item"><a href="https://www.nikkei.com/smartchart/?code={{ dailysummary.company_codelist.7 }}&timeframe=10y&interval=1Month&upperIndicators=none&lowerIndicators=volume&eventsShow=0">{{ dailysummary.companyname_list.7 }}</a><div style="float:right;margin-left:10px">{{ dailysummary.rate_list.7 }}%</div></li>
+		  <li class="list-group-item"><a href="https://www.nikkei.com/smartchart/?code={{ dailysummary.company_codelist.8 }}&timeframe=10y&interval=1Month&upperIndicators=none&lowerIndicators=volume&eventsShow=0">{{ dailysummary.companyname_list.8 }}</a><div style="float:right;margin-left:10px">{{ dailysummary.rate_list.8 }}%</div></li>
+	</ul>
+<!--今週のランク-->
+		<table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+
+              <tr>
+                <td align="center" valign="top">
+					<p style="line-height:32px; font-size:28px; font-family:'TsukuGoPro R','Hiragino Kaku Gothic ProN','メイリオ', Meiryo,sans-serif; margin:15px 0px 0px 0px; color: #4d4d4d;">Macro Economics<br><br></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+                  <a href="{{ dailysummary.company_codelist.1 }}">
+                  <!--<img src="https://imgc.eximg.jp/i=https%253A%252F%252Fs.eximg.jp%252Fexnews%252Ffeed%252FKarapaia%252FKarapaia_52277507_2.jpg,quality=70,type=jpg" style="width: 100%;"></a>-->
+                  <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599830586106&di=034e10bd76a5bba39c1530f254f12f5b&imgtype=0&src=http%3A%2F%2Fs9.rr.itc.cn%2Fr%2FwapChange%2F20159_20_23%2Fa4uph42918768419352.jpg" style="width: 100%;"></a>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+		{% for companynews_list in companylistnews_img %}
+
+    		<table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+                  <a href="">
+
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top">
+					<p style="line-height:32px; font-size:28px; font-family:'TsukuGoPro R','Hiragino Kaku Gothic ProN','メイリオ', Meiryo,sans-serif; margin:15px 0px 0px 0px; color: #4d4d4d;">{{ companynews_list.company_name }}<br><br></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+					<img src="cid:{{ companynews_list.company_code }}" style="width: 100%;"></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+		{% endfor %}
+
+<!--indicator-->
+<table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+                  <a href="">
+
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top">
+					<p style="line-height:32px; font-size:28px; font-family:'TsukuGoPro R','Hiragino Kaku Gothic ProN','メイリオ', Meiryo,sans-serif; margin:15px 0px 0px 0px; color: #4d4d4d;">Vix<br><br></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+					<p style="line-height:16px; font-size:20px;  margin:8px 0px 0px 0px; color: red;">{{ indicator.vix }}
+					{% if indicator.vix > 50 %}
+					Fear
+					{% else %}
+					Greed
+					{% endif %}<br><br></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+<!--japan GDP-->
+<table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+                  <a href="{{ dailysummary.company_codelist.1 }}">
+
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top">
+					<p style="line-height:32px; font-size:28px; font-family:'TsukuGoPro R','Hiragino Kaku Gothic ProN','メイリオ', Meiryo,sans-serif; margin:15px 0px 0px 0px; color: #4d4d4d;">Main indicator<br><br></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+
+                  <img src="cid:japan_gdp" style="width: 100%;">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+<!--usa gdp-->
+	<table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+                  <a href="{{ dailysummary.company_codelist.1 }}">
+
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top">
+
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+
+                  <img src="cid:usagdp" style="width: 100%;">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+<!--china gdp-->
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+                  <a href="{{ dailysummary.company_codelist.1 }}">
+
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top">
+
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+
+                  <img src="cid:china_gdp" style="width: 100%;">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+<!--japan pmi-->
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+            <tr>
+                <td align="center" valign="top">
+					<p style="line-height:32px; font-size:28px; font-family:'TsukuGoPro R','Hiragino Kaku Gothic ProN','メイリオ', Meiryo,sans-serif; margin:15px 0px 0px 0px; color: #4d4d4d;">PMI<br><br></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+				<a href="https://www.investing.com/economic-calendar/ism-manufacturing-pmi-202">
+                  <img src="cid:japan_pmi" style="width: 100%;">
+                 </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+   <ul class="list-group">
+   		{% for item in indicator_data.japanpmi %}
+		   <li class="list-group-item active">{{ item.date }}<div style="float:right;margin-left:10px">{{ item.value }}</div></li>
+		{% endfor %}
+	</ul>
+<!--usa pmi-->
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+				<a href="https://www.investing.com/economic-calendar/ism-manufacturing-pmi-173">
+                  <img src="cid:usa_pmi" style="width: 100%;">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+  <ul class="list-group">
+   		{% for item in indicator_data.usapmi %}
+		   <li class="list-group-item active">{{ item.date }}<div style="float:right;margin-left:10px">{{ item.value }}</div></li>
+		{% endfor %}
+	</ul>
+<!--china pmi-->
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+				<a href="https://www.investing.com/economic-calendar/ism-manufacturing-pmi-594">
+                  <img src="cid:china_pmi" style="width: 100%;">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+  <ul class="list-group">
+   		{% for item in indicator_data.chinapmi %}
+		  <li class="list-group-item active">{{ item.date }}<div style="float:right;margin-left:10px">{{ item.value }}</div></li>
+		{% endfor %}
+	</ul>
+
+<!--japan cpi-->
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+            <tr>
+                <td align="center" valign="top">
+					<p style="line-height:32px; font-size:28px; font-family:'TsukuGoPro R','Hiragino Kaku Gothic ProN','メイリオ', Meiryo,sans-serif; margin:15px 0px 0px 0px; color: #4d4d4d;">CPI<br><br></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+				<a href="https://www.investing.com/economic-calendar/national-cpi-992">
+                  <img src="cid:japan_cpi" style="width: 100%;">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+  <ul class="list-group">
+   		{% for item in indicator_data.japancpi %}
+		   <li class="list-group-item active">{{ item.date }}<div style="float:right;margin-left:10px">{{ item.value }}%</div></li>
+		{% endfor %}
+	</ul>
+
+<!--usa cpi-->
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+				<a href="https://www.investing.com/economic-calendar/cpi-69">
+                  <img src="cid:usa_cpi" style="width: 100%;">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+  <ul class="list-group">
+   		{% for item in indicator_data.usacpi %}
+		   <li class="list-group-item active">{{ item.date }}<div style="float:right;margin-left:10px">{{ item.value }}%</div></li>
+		{% endfor %}
+	</ul>
+
+<!--china cpi-->
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+				<a href="https://www.investing.com/economic-calendar/chinese-cpi-743">
+                  <img src="cid:china_cpi" style="width: 100%;">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+  <ul class="list-group">
+   		{% for item in indicator_data.chinacpi %}
+		   <li class="list-group-item active">{{ item.date }}<div style="float:right;margin-left:10px">{{ item.value }}%</div></li>
+		{% endfor %}
+	</ul>
+
+<!--今月のランク-->
+<table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fef8f7">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+                  <a href="{{ dailysummary.company_codelist.1 }}">
+
+
+                  </a>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top">
+					<p style="line-height:32px; font-size:28px; font-family:'TsukuGoPro R','Hiragino Kaku Gothic ProN','メイリオ', Meiryo,sans-serif; margin:15px 0px 0px 0px; color: #4d4d4d;">今週のサマリー<br><br></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+
+                  <img src="https://kanazawabunko.net/wp-content/uploads/2016/12/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2016-12-05-18.46.59.png" style="width: 100%;">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <ul class="list-group">
+			  <li class="list-group-item active"><a href=""></a><div style="float:right;margin-left:10px">1%</div></li>
+			  <li class="list-group-item active"><a href=""></a><div style="float:right;margin-left:10px">2%</div></li>
+			  <li class="list-group-item active"><a href=""></a><div style="float:right;margin-left:10px">3%</div></li>
+			  <li class="list-group-item active"><a href=""></a><div style="float:right;margin-left:10px">4%</div></li>
+			  <li class="list-group-item active"><a href=""></a><div style="float:right;margin-left:10px">5%</div></li>
+		  </ul>
+
+
+
+
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;"><img src="" style="width: 100%;"></td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+                  <table border="0" cellspacing="0" cellpadding="0" style="background-color:#fef8f7;">
+                    <tbody>
+                      <tr>
+                        <td style="line-height: 0;"><a href=""><img src="https://houseoflotus.jp/mail/20181116/sns03.png" style="width: 100%;"></a></td>
+                        <td style="line-height: 0;"><a href=""><img src="https://houseoflotus.jp/mail/20181116/sns04.png" style="width: 100%;"></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;"><img src="" style="width: 100%;"></td>
+              </tr>
+              <tr>
+                <td align="center" valign="top">
+                  <table border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                      <tr>
+                        <td style="padding:10px;">
+                          <a href="">
+                          <img src="insta01.png" style="width: 100%;">
+                          </a>
+						</td>
+                        <td style="padding:10px;">
+                          <a href="">
+                          <img src="insta02.png" style="width: 100%;">
+                          </a>
+						</td>
+                        <td style="padding:10px;">
+                          <a href="">
+                          <img src="insta03.png" style="width: 100%;">
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="recovery-table-container" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td align="center" valign="top">
+                  <table border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                      <tr>
+                        <td style="padding:10px;">
+                          <a href=""><img src="" style="width: 100%;"></a>
+                        </td>
+                        <td style="padding:10px;">
+                          <a href=""><img src="https://houseoflotus.jp/mail/common/footer2.png" style="width: 100%;"></a>
+                        </td>
+                        <td style="padding:10px;">
+                          <a href=""><img src="https://houseoflotus.jp/mail/common/footer3.png" style="width: 100%;"></a>
+                        </td>
+                        <td style="padding:10px;">
+                          <a href=""><img src="https://houseoflotus.jp/mail/common/footer4.png" style="width: 100%;"></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;"><img src="" style="width: 100%;"></td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="line-height: 0;">
+                  <p style="font-size:10px; color: #4d4d4d; font-family: 'メイリオ', Meiryo,  'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; margin:30px 0 30px; line-height:23px;">本ニュースレターは、stock-researchにて<br>
+                      メールアドレスをご登録いただいた方に配信しております。<br>
+                      配信停止をご希望の方は、<a href="" style="color: #4d4d4d">こちら</a>よりお手続きをお願い致します。<br>
+                      オンラインショップ会員様は、<a href="" style="color: #4d4d4d">マイページにログイン</a>いただき、「会員登録情報」にて購読解除してください。<br></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body></html>

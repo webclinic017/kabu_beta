@@ -1,0 +1,237 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>株詳細</title>
+	<script src="http://mleibman.github.io/SlickGrid/lib/jquery-1.7.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.css" type="text/css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.js"></script>
+	<script src="{% static '/js/mytable.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'css/mytable.css' %}" type="text/css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+</head>
+<style type="text/css">
+.s{
+  /*リンクテキストのスタイルです*/
+  color: red;
+  text-decoration: none;
+  position: relative;
+}
+
+.s-balloon {
+  /*バルーンのスタイルです*/
+
+  /*表示位置を指定します*/
+  position: absolute;
+  top: -30px;
+  left: 100px;
+
+  /*非表示にしておきます*/
+  display: none;
+  opacity: 0;
+
+  /*表示スタイルを指定します*/
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  /*影をつけて見栄えを良くします*/
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 1px 0 0 rgba(255, 255, 255, 0.3),
+    inset -1px 0 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+
+  /*アニメーションを指定します*/
+  animation-duration: 0.3s;
+  animation-name: show-balloon;
+}
+
+.s:hover .s-balloon {
+  /*マウスホバー時のバルーンのスタイルです*/
+
+  /*表示するようにします*/
+  display: inline-block;
+  opacity: 1;
+  top: -40px;
+}
+
+
+
+@keyframes show-balloon {
+  /*アニメーションを定義します*/
+  0% {
+    display: none;
+    opacity: 0;
+    top: -30px;
+  }
+  1% {
+    display: inline-block;
+    opacity: 0;
+    top: -30px;
+  }
+  100% {
+    display: inline-block;
+    opacity: 1;
+    top: -40px;
+  }
+}
+</style>
+<body>
+{% include  'part/header.html' %}
+	<h3>日経225</h3>	
+	
+	<canvas id="myprice"  style="display: block; height: 390px; width: 100%;"></canvas>
+	
+	<center><input type="button" name="weekprice" value="weekprice" onclick="weekamount(-7)"><input type="button" name="monthprice" value="monthprice" onclick="weekamount(-30)"><input type="button" name="twomonthprice" value="twomonthprice" onclick="weekamount(-60)"><input type="button" name="rollback" value="rollback" onclick="rollback()"><input type="button" name="kairiritu" value="kairiritu" onclick="togglehide()"></center>
+	
+	<div>
+</body>
+<script>	
+	//日別の量
+	var dailyinfo  		= {{ date|safe }}
+	var amountctx 		= document.getElementById('myprice').getContext('2d');
+	
+	//真ん中の線を出す
+	var amount			={{ amount|safe }}
+	var finish_price	={{ finish_price|safe }}
+	//var dayprice		={{ 30day_price|safe }}
+	//var sevendayprice	={{ 72day_price|safe }}
+	var liyangprice		={{ liyang_price|safe }}
+	var liyang_price_upper		={{ liyang_price_upper|safe }}
+	var liyang_price_down		={{ liyang_price_down|safe }}
+	//data整理
+	
+	var zerocount		= liyangprice.filter(item=>item==0).length
+	amount				= amount.slice(zerocount)
+	liyangprice			= liyangprice.slice(zerocount)
+	liyang_price_upper	= liyang_price_upper.slice(zerocount)
+	liyang_price_down	= liyang_price_down.slice(zerocount)
+	finish_price		= finish_price.slice(zerocount)
+	dailyinfo			= dailyinfo.slice(zerocount)
+	
+	var minus_liyang_price_down_finish_price =liyang_price_down.map(function (num, idx) {
+		  if((num - finish_price[idx])*100/num > 15){
+		  	return 100;
+		  }else{
+		  	return 0;
+		  }
+		}); 
+		
+	
+	
+	var myamount = new Chart(amountctx, {
+	    type: 'line',
+	    data: {
+	        labels: dailyinfo,
+	        datasets: [	        	
+		        	{
+			        	label: '価',
+			            data: finish_price,	            
+			            borderColor: 'rgb(255, 255, 0)',
+			            yAxisID: "y-axis-2",
+			        	},
+	        	{
+		        	label: 'ave(ma(30)+ma(72))',
+		            data: liyangprice,	            
+		            borderColor: 'Green',
+		            yAxisID: "y-axis-2",
+		        	},
+	        	{
+		        	label: 'liyang_price_upper',
+		            data: liyang_price_upper,	            
+		            borderColor: 'pink',
+		            yAxisID: "y-axis-2",
+		        	},
+	        	{
+		        	label: 'liyang_price_down',
+		            data: liyang_price_down,	            
+		            borderColor: 'pink',
+		            yAxisID: "y-axis-2",
+		        },
+		        {
+			        label: '乖離率',
+			        data: minus_liyang_price_down_finish_price,	            
+			        borderColor: 'orange',
+			        yAxisID: "y-axis-1",
+			     },
+	        ],
+	        
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+                    id: "y-axis-1",
+                    type: "linear",
+                    position: "left",
+                    ticks: {
+                        step:10,
+                        callback: function(value, index, values) {
+                        	
+                        	return value + "%";
+                    	},
+                    },
+                },
+                {
+                    id: "y-axis-2",
+                    type: "linear",
+                    position: "right",
+                    ticks: {
+                       
+                    },
+                }
+	        ],
+	            
+	        }
+	    }
+	});
+	
+	function weekamount(day){
+		
+		myamount.config.data.datasets[0].data=finish_price.slice(day)
+		myamount.config.data.datasets[1].data=liyangprice.slice(day)
+		myamount.config.data.datasets[2].data=liyang_price_upper.slice(day)
+		myamount.config.data.datasets[3].data=liyang_price_down.slice(day)
+		
+		myamount.config.data.datasets[4].data=minus_liyang_price_down_finish_price.slice(day)
+		
+		myamount.config.data.labels=dailyinfo.slice(day)
+		myamount.update();
+		
+	}
+	function rollback(){
+	
+		myamount.config.data.datasets[0].data=finish_price
+		myamount.config.data.datasets[1].data=liyangprice
+		myamount.config.data.datasets[2].data=liyang_price_upper
+		myamount.config.data.datasets[3].data=liyang_price_down
+		
+		myamount.config.data.datasets[4].data=minus_liyang_price_down_finish_price.slice(day)
+		
+		myamount.config.data.labels=dailyinfo
+		myamount.update();
+	}
+	
+	function togglehide(){
+		if(!myamount.getDatasetMeta(0).hidden){
+			myamount.getDatasetMeta(0).hidden=true
+			myamount.getDatasetMeta(1).hidden=true
+			myamount.getDatasetMeta(2).hidden=true
+			myamount.getDatasetMeta(3).hidden=true
+			
+			myamount.getDatasetMeta(4).hidden=false
+		}else{
+			myamount.getDatasetMeta(0).hidden=false
+			myamount.getDatasetMeta(1).hidden=false
+			myamount.getDatasetMeta(2).hidden=false
+			myamount.getDatasetMeta(3).hidden=false
+			
+			myamount.getDatasetMeta(4).hidden=true
+		}
+		
+		myamount.update();
+	}
+	weekamount(-60);
+	togglehide()
+</script>
+</html>

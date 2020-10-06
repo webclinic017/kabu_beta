@@ -1,0 +1,143 @@
+{% load staticfiles %}
+{% include  'part/backend_jscss.html' %}
+<html>
+<title>ニュース検索</title>
+<style>
+		.grid {
+			position: relative;
+			border: 1px solid #000;
+			padding-top: 37px;
+			background: #B34C00;
+			width:100%;
+			}
+			.grid-container {
+			overflow-y: auto;
+
+			}
+			table {
+			border-spacing: 0;
+			width:100%;
+			}
+			td + td {
+			border-left:1px solid #000;
+			}
+			td, th {
+			border-bottom:1px solid #000;
+			background: #fff;
+			color: #000;
+			padding: 10px 25px;
+			}
+			th {
+			height: 0;
+			line-height: 0;
+			padding-top: 0;
+			padding-bottom: 0;
+			color: transparent;
+			border: none;
+			white-space: nowrap;
+			}
+			th div{
+			position: absolute;
+			background: transparent;
+			color: #fff;
+			padding: 9px 25px;
+			top: 0;
+			margin-left: -25px;
+			line-height: normal;
+			border-left: 1px solid #800;
+			}
+			a,a:active,a:hover,a:visited {
+		    text-decoration: none;
+		    color: #000
+			}
+			.search-item{
+				margin:10px;
+			}
+	</style>
+<script>
+
+$(document).ready(function() {
+	//removefavorite
+	$('a.system-check').on('click',function(){
+	//var message ='本当に'+$(this).attr('newsid')+'checkしますね';
+	if(1){
+		//information
+		//ajax
+		$.ajax({
+		   type: "GET",
+		   url: "/backend/check/"+$(this).attr('newsid'),
+		   success: function(msg){
+		     console.log(msg);
+			 location.reload();
+		   }
+		 });
+
+	}else{
+
+	}
+});
+	//初期化
+	$("[name=news_start_date]").datepicker("setDate", "{{ search_condition.news_start_date }}");
+	$("[name=news_end_date]").datepicker("setDate", "{{ search_condition.news_end_date }}");
+
+	$("[name=news_start_date]").datepicker({
+		dateFormat: 'yy/mm/dd',
+		language: "ja",
+		autoclose: true,
+	});
+	$("[name=news_end_date]").datepicker({
+		dateFormat: 'yy/mm/dd',
+		language: "ja",
+		autoclose: true,
+	});
+
+//
+});
+
+</script>
+<body>
+{% include  'part/backend_header.html' %}
+<form action="." method="post">
+<div>
+	<div>
+		<div class="search-item"><div>検索開始日</div><input name="news_start_date"  value="{{ search_condition.news_start_date }}"></div>
+		<div class="search-item"><div>検索終了日</div><input name="news_end_date" value="{{ search_condition.news_end_date }}"></div>
+		<div class="search-item"><div>銘柄</div><input name="company_name" value="{{ search_condition.company_name }}"></div>
+		<div class="search-item"><input type="submit" value="検索"></div>
+	</div>
+</div>
+<div>
+	<div>
+
+	</div>
+</div>
+{% csrf_token %}
+</form>
+<div style="color:red">合計 {{news_count}}個news</div>
+<div class="grid">
+	<div class="grid-container">
+		<table>
+			<thead>
+				<tr class="header">
+				<th>NEWS ID<div>NEWS ID</div></th>
+				<th>タイトル<div>タイトル</div></th>
+				<th>内容<div>内容</div></th>
+				<th>CLASS_ID<div>CLASS_ID</div></th>
+				</tr>
+			</thead>
+			<tbody>
+			 {% for info in infolist %}
+		          <tr>
+					<td>{{ info.news_id }}</td>
+					<td><a href="{{ info.url }}" target=" _blank">{{ info.title }}</a></td>
+					<td>{{ info.description }}</td>
+					<td {% if info.company.count %}style="background:aquamarine;"{% endif %}><a class="system-check"  href="javascript:void(0);" newsid={{ info.news_id }}>CHECK</a></td>
+					<td><a class="system-addmemo" href="/backend/showdetail/{{ info.news_id }}/">Add Memo</a></td>
+		          </tr>
+		        {% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+<body>
+</html>

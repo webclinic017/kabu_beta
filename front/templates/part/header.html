@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/header.css' %}" type="text/css"/>
+<section style="display:inline-flex;width:100%">
+	<section class="header-first">
+		<a href="">Filter</a>
+		<section  class="header-second">
+			<a href="/front/favoritelist/">favoritelist</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/unusualamount/get/">getUnusualAmount</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getdcflist/">DCF</a>
+		</section>
+
+		<section  class="header-second">
+			<a href="/front/rise_rate_company/">rise-percent</a>
+		</section>
+
+		<section  class="header-second">
+			<a href="/front/homepage/">homepage</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getsrhomepage/">settle-rise-percent</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getsettleandsunny/">settle-andsummary</a>
+		</section>
+
+	</section>
+
+	<section class="header-first">
+		<a href="javascript:void(0);">Action</a>
+		<section class="header-second">
+			<a href="/front/getnik225/">getnik225</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getnik/1352/">getnik</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getdailyinfo/">getdailyinfo</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/importtokyoone/">importtokyoone</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/yeardata/get/">GetYearData</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/importkabucodeviatxt/">importcodeviatxt</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getdailyinfo/">DailyDate取得する</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/calcutefiveweight/">5-weight</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/deleteotherData/">deleteotherData</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getkabusumnumber/">getkabusumnumber</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/deleteotherdate/">deleteotherdate</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getDailySummary/">getDailySummary</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/addtofavorite/2335">addtofavorite</a>
+		</section>
+	</section>
+
+	<section  class="header-first">
+		<a href="javascript:void(0)">Indicator</a>
+		<section  class="header-second">
+			<a href="/front/getnikeiindex/">nike(30+72)</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getnewhouseOpeninfo/">日本-新屋開工</a>
+		</section>
+		<section  class="header-second">
+			<a href="/front/getworldinfo/">world-info</a>
+		</section>
+
+		<section  class="header-second">
+			<a href="/backend/showeventlist/">backendに遷移する</a>
+		</section>
+	</section>
+
+</section>
+<script>
+$(document).ready(function() {
+$('.header-first').on('click',function(){
+		$(this).find('.header-second').slideToggle();
+	});
+});
+</script>

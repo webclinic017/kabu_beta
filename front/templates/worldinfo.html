@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+	<title>world info</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+</head>
+<style type="text/css">
+div.hidden{
+	display:none;
+}
+</style>
+<script>
+$(function(){
+	$('a.tab').on('click',function(){
+		console.log('test');
+	});
+
+});
+
+</script>
+<body>
+{% include  'part/header.html' %}
+{% block content %}
+<div class="america">
+	<a class="tab" href="javascript:void(0);">USA</a>
+	<div >
+	<div>
+	<a href="https://tradingeconomics.com/united-states/government-bond-yield">United States Government Bond 10Y</a></div>
+	<img src="https://d3fy651gv2fhd3.cloudfront.net/charts/historical@3x.png?s=USGG10YR&v=201909231222V20190821&forecast=3" width='900'>
+	</div>
+</div>
+
+<div class='japan'>
+	<a class="tab" href="javascript:void(0);"></a>
+	<div>
+		<div>
+		<div>
+		<a href="">Japan Government Bond 10Y</a>
+		</div>
+		<img src="https://d3fy651gv2fhd3.cloudfront.net/charts/historical@3x.png?s=GJGB10&v=201909210713V20190821&forecast=3" width='900'>
+
+		</div>
+
+
+
+		<div>
+		Japan Unemployment Rate
+		<div>
+		<img src="https://d3fy651gv2fhd3.cloudfront.net/charts/historical@3x.png?s=JNUE&v=201908301133V20190821&forecast=3" width="900">
+		</div>
+		</div>
+
+		<div>
+		Japan Manufacturing PMI(Purchasing Manager's Index)
+			<div>
+			<img src="https://d3fy651gv2fhd3.cloudfront.net/charts/historical@3x.png?s=JAPANMANPMI&v=201909040102V20190821&forecast=3" width='900'>
+			</div>
+		</div>
+
+		<div>
+			<div>
+			<a href="https://tradingeconomics.com/japan/consumer-price-index-cpi">Japan CPI(Consumer Price Index )</a>
+			</div>
+		<img src="https://d3fy651gv2fhd3.cloudfront.net/charts/historical@4x.png?s=JAPANCONPRIINDCPI&v=201909200940V20190821&forecast=3" width='900'></img>
+		</div>
+
+		<div>
+			<a href='https://tradingeconomics.com/japan/gdp'>Japan GDP</a>
+			<div>
+			<img src="https://d3fy651gv2fhd3.cloudfront.net/charts/historical@3x.png?s=WGDPJAPA&v=201907011458V20190821&forecast=3" width='900'>
+			</div>
+		</div>
+
+		<a href="https://www.rakuten-sec.co.jp/web/market/data/list.html">golbal market data(currency,bond,futures,index,stock)</a>
+		<br/>
+		<a href="https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=schedule&ym=201910&lst=20191004">settle schedule</a>
+		<br/>
+		<a href="https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=trend_sig_sec&fa=dBSC">market class</a>
+
+		<!-- TradingView Widget BEGIN -->
+		<div class="tradingview-widget-container">
+		  <div class="tradingview-widget-container__widget"></div>
+		  <div class="tradingview-widget-copyright"><a href="https://jp.tradingview.com/symbols/TVC-VIX/technicals/" rel="noopener" target="_blank"><span class="blue-text">VIXのテクニカル分析</span></a></div>
+		  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+		  {
+		  "interval": "1D",
+		  "width": "100%",
+		  "isTransparent": true,
+		  "height": "100%",
+		  "symbol": "TVC:VIX",
+		  "showIntervalTabs": true,
+		  "locale": "ja",
+		  "colorTheme": "dark"
+		}
+		  </script>
+		</div>
+		<!-- TradingView Widget END -->
+	</div>
+</div>
+<iframe src="https://www.google.com/maps/d/embed?mid=14KA7pURbtNSmC4sEUvoH3-UzS-HZ21B3" width="1400" height="600"></iframe>
+</body>
+{% endblock %}

@@ -1,0 +1,29 @@
+#mytable td{
+	border-style:inset;
+}
+#mytable th{
+
+	background-color: grey;
+}
+td.plus{
+
+	background-color: red;
+}
+td.minus{
+
+	background-color: #02800042;
+}
+
+div.buy-flag{
+	float:right;
+	background-color: red;
+	margin-left: 2%;
+	padding:8px;
+}
+
+div.sale-flag{
+	float:right;
+	background-color: #54f537;
+	margin-left: 2%;
+	padding:8px;
+}

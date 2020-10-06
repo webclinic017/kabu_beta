@@ -1,0 +1,77 @@
+{% load staticfiles %}
+{% include  'part/backend_jscss.html' %}
+<html>
+
+<title>company list</title>
+<style>
+		.grid {
+			position: relative;
+			border: 1px solid #000;
+			padding-top: 37px;
+			background: #B34C00;
+			width:100%;
+			}
+			.grid-container {
+			overflow-y: auto;
+
+			}
+			table {
+			border-spacing: 0;
+			width:100%;
+			}
+			td + td {
+			border-left:1px solid #000;
+			}
+			td, th {
+			border-bottom:1px solid #000;
+			background: #fff;
+			color: #000;
+			padding: 10px 25px;
+			}
+			th {
+			height: 0;
+			line-height: 0;
+			padding-top: 0;
+			padding-bottom: 0;
+			color: transparent;
+			border: none;
+			white-space: nowrap;
+			}
+			th div{
+			position: absolute;
+			background: transparent;
+			color: #fff;
+			padding: 9px 25px;
+			top: 0;
+			margin-left: -25px;
+			line-height: normal;
+			border-left: 1px solid #800;
+			}
+			a,a:active,a:hover,a:visited {
+		    text-decoration: none;
+		    color: #000
+			}
+	</style>
+
+<body>
+{% include  'part/backend_header.html' %}
+<div style="color:red">銘柄数:</div>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">CODE</th>
+      <th scope="col">ADD COMPANY</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for info in resultlist %}
+	<tr>
+	     <td><a href="{% if info.monitor_flag is not None %}/backend/showtagviaCompanycode/{{ info.company_code }}{% else %}/front/getnik/{{ info.company_code }}{% endif %}" target=" _blank">{{ info.company_code }}</a></td>
+		 <td><a href="/front/getnik//{{ info.company_code }}">ADD COMPANY</a></td>
+	 </tr>
+	{% endfor %}
+  </tbody>
+</table>
+</table>
+<body>
+</html>

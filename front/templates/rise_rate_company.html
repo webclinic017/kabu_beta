@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>下がる率-株一覧</title>
+		<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <style>
+		html, body {
+			height: 100%;
+			padding: 0px;
+			margin: 0px;
+			overflow: hidden;
+		}
+		td.red{
+		background:red;
+		}
+		td.blue{
+		background:blue;
+		}
+		tr:hover{
+		background:pink;
+		}
+		td.gold{
+		background:gold;
+		}
+	</style>
+</head>
+<script>
+$(document).ready(function() {
+$('.table-dark tr ').dblclick(function () {
+	  $(this).hide("slow");
+	});
+	//add to favorite
+$('.addtofavorite').on('click',function(){
+	var message ='本当に'+$(this).attr('code')+'('+$(this).attr('companyname')+")を気に入りに追加するか？";
+	if(window.confirm(message)){
+		//information
+		//ajax
+		$.ajax({
+		   type: "GET",
+		   url: "/front/addtofavorite/"+$(this).attr('code'),
+		   success: function(msg){
+		     console.log(msg);
+		     $('.information').text(msg)
+		     $('.information').fadeIn();
+		     $('.information').fadeOut(30);
+		   }
+		 });
+		
+	}else{
+		
+	}
+})
+
+});
+
+</script>
+<body>
+<div style="display: block;overflow: scroll;height: 800px;">
+<div style="overflow: scroll;">
+{% include  'part/header.html' %}
+</div>
+<div class='information'></div>
+<table class="table-dark table-condensed" style="width: 100%;">
+<thead>
+         <tr>      
+            <th>会社code</th>   
+            <th>会社名</th>
+            <th>特色</th>            
+           
+            <th>区分</th>
+            <th>下がる率</th>
+            <th>価格</th>          
+            <th>Chart1</th>
+            <th>Chart2</th>
+            <th>Chart2</th>
+            <th>気に入り</th>
+            <th>address</th>
+             </tr>
+    </thead>
+{% for company in companylist %}
+ <tr>
+	 <td>
+	 	{{ company.company_code }}
+	 </td>
+	 <td>
+	 	{{ company.company_info.company_name }}
+	 </td>
+	 <td>
+	 	{{ company.company_info.feature }}
+	 </td>
+	 <td {% if company.company_info.class_name == "情報・通信"  %}class="red"{% elif company.company_info.class_name == "医薬品" or  company.company_info.class_name == "食料品"   %}class="blue"{% else %}{% endif %}>
+	 	{{ company.company_info.class_name }}
+	 </td>
+	 <td {% if company.rate > 50 %}class="gold"{% endif %}>
+	 	{{ company.rate }}%
+	 </td>
+	  <td>
+	 	{{ company.price }}
+	 </td>
+	 <td>
+	 	<a href="/front/companyinfo/{{ company.company_code }}" target=”_blank”>リンク<a>
+	 </td>
+	 <td>
+	 	<a href="https://minkabu.jp/stock/{{ company.company_code }}/chart"  target=”_blank”>link<a>
+	 </td>
+	  <td>
+	 	<a href="https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report_ts&bcode={{ company.company_code }}"  target=”_blank”>外部参考</a>
+	 </td>
+	 <td>
+	   <a href="javascript:void(0);" class="addtofavorite" code="{{ company.company_code }}" companyname="{{ company.company_info.company_name }}">追加</a>
+	 </td>
+	 <td>
+	   <a href="https://www.google.com/maps/search/?api=1&query={{ company.company_info.address }}&zoom=21"  target=”_blank”>MAP</a>
+	 </td>
+ </tr>
+{% endfor %}
+</table>
+</div>
+
+</body>

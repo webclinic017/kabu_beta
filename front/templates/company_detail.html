@@ -1,0 +1,423 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>株詳細</title>
+	<script src="http://mleibman.github.io/SlickGrid/lib/jquery-1.7.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.css" type="text/css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.js"></script>
+	<script src="{% static '/js/mytable.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'css/mytable.css' %}" type="text/css"/>
+	<link rel="stylesheet" href="{% static 'css/common.css' %}" type="text/css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+</head>
+<style type="text/css">
+.s{
+  /*リンクテキストのスタイルです*/
+  color: red;
+  text-decoration: none;
+  position: relative;
+}
+
+.s-balloon {
+  /*バルーンのスタイルです*/
+
+  /*表示位置を指定します*/
+  position: absolute;
+  top: -30px;
+  left: 100px;
+
+  /*非表示にしておきます*/
+  display: none;
+  opacity: 0;
+
+  /*表示スタイルを指定します*/
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  /*影をつけて見栄えを良くします*/
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 1px 0 0 rgba(255, 255, 255, 0.3),
+    inset -1px 0 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+
+  /*アニメーションを指定します*/
+  animation-duration: 0.3s;
+  animation-name: show-balloon;
+}
+
+.s:hover .s-balloon {
+  /*マウスホバー時のバルーンのスタイルです*/
+
+  /*表示するようにします*/
+  display: inline-block;
+  opacity: 1;
+  top: -40px;
+}
+
+
+
+@keyframes show-balloon {
+  /*アニメーションを定義します*/
+  0% {
+    display: none;
+    opacity: 0;
+    top: -30px;
+  }
+  1% {
+    display: inline-block;
+    opacity: 0;
+    top: -30px;
+  }
+  100% {
+    display: inline-block;
+    opacity: 1;
+    top: -40px;
+  }
+}
+</style>
+<body>
+{% include  'part/header.html' %}
+	<h3><a href="https://minkabu.jp/stock/{{ company_code }}/chart"  style="text-decoration : none; color : #000000;">∇{{ company_name }}-年度財務指標</a></h3>
+  <table id='mytable'>
+  </table>
+  	<h3>∇月別-量価</h3>
+	<canvas id="monthdata"  style="display: block; height: 390px; width: 100%;"></canvas>
+  	<h3>∇支持抵抗帯</h3>
+  	<div style="display: block; height: 20%; width: 100%">
+  	<div>
+  		<div>
+  		<span class="diff-before">支持抵抗価格：　{{ current_price.important_price }} </span>
+  		<span class="diff-after">直近価格： {{ current_price.recent_price }}　</span>
+  		<span style="background-color: {% if current_price.simple_dcf_price > current_price.recent_price %}
+			red
+			{% else %}
+			#aeb4ae
+			{% endif %};padding:8px">
+DCFモデール: {{ current_price.simple_dcf_price }}</span>
+  		<div class='{% if current_price.important_price > current_price.recent_price %}buy{% else %}sale{% endif %}-flag'>{% if current_price.important_price > current_price.recent_price %}buy{% else %}sale{% endif %}</div>
+  		</div>
+  	</div>
+  	<canvas id="myprice-amount"  style="display: block; height: 390px; width: 100%;"></canvas>
+	<div>
+	<h3>∇日別-量価関係</h3>
+	<span class="diff-before">平均amount: {{ current_amount.ave_amount }}</span>
+	<span class="diff-after">最近のamount:{{ current_amount.recent_amount }} </span>
+	<span>{{ current_amount.rate }}倍</span>
+	<span class="s"></span>
+	</div>
+	<div class='{% if current_amount.ave_amount > current_amount.recent_amount %}sale{% else %}buy{% endif %}-flag'>
+	{% if current_amount.ave_amount > current_amount.recent_amount %}
+	 人気低
+	{% else %}
+	 人気高
+	{% endif %}
+	</div>
+	<canvas id="myamount"  style="display: block; height: 390px; width: 100%;"></canvas>
+	<center>
+		<input type="button" name="weekamount" value="weekamount" onclick="weekamount(-7)">
+		<input type="button" name="twomonth" value="twomonth" onclick="weekamount(-60)">
+		<input type="button" name="rollback" value="rollback" onclick="rollback()">
+	</center>
+	<div class="{% if recent_fiveday_weight > 2 %}buy{% else %}sale{% endif %}-flag">
+	{{ recent_fiveday_weight }}{% if recent_fiveday_weight > 2 %}buy{% else %}sale{% endif %}</div>
+
+	{% if current_price.recent_buy_signal == 1 %}<div class="buy-flag">buy sigal:buy</div>{% endif %}{% if current_price.recent_sale_signal == 1 %}<div class="sale-flag">sale</div>{% endif %}
+	<h3 class="archor-day-weight">∇日別-ウェット</h3>
+	<div class="day-weight">
+	<canvas id="weight"  style="display: block; height: 390px; width: 100%;"></canvas>
+	<center>
+		<input type="button" name="five_day_weight" value="five day weight" onclick="fivedayweight();">
+		<input type="button" name="day_weight" value="day weight" onclick="dayweight();">
+		<input type="button" name="pie_weight" value="pie weight" onclick="getpie();">
+		<input type="button" name="bar_weight" value="bar weight" onclick="getbar();">
+	</center>
+	</div>
+	<h3 class="">∇tag-news-wordcloud</h3>
+	<img src="{{ tagwcloud_img }}" ><img src="{{ newswcloud_img }}" >
+
+
+	<a href="https://kanemochidamaneo.com/canslim">Can-slim</a>
+	<a href="https://www.investopedia.com/terms/p/piotroski-score.asp">F-score</a>
+
+	</div>
+</body>
+<script>
+	app.target  		= '#mytable';
+	app.columns.push({'name':'year','label':'決算期','isheader':true});
+	app.columns.push({'name':'yeareps','label':'EPS'});
+	app.columns.push({'name':'yearsells','label':'売上'});
+	app.columns.push({'name':'yearprofits','label':'当期利益'});
+
+
+	app.data 	= {{ info|safe }};
+	app.init();
+
+	//日別の量
+	var dailyinfo  		= {{ dailyinfo|safe }}
+	var amountctx 		= document.getElementById('myamount').getContext('2d');
+	//真ん中の線を出す
+	var ave_amount		={{ current_amount.ave_amount }}
+	var ave_amount_arr	=[]
+	for(var i=0; i<dailyinfo.day.length; i++){
+		ave_amount_arr.push(ave_amount)
+	}
+	var myamount = new Chart(amountctx, {
+	    type: 'line',
+	    data: {
+	        labels: dailyinfo.day,
+	        datasets: [
+	        	{
+		        	label: '価',
+		            data: dailyinfo.price,
+		            borderColor: 'rgb(255, 99, 132)',
+		            yAxisID: "y-axis-1",
+		        	},
+	        	{
+	            label: '量',
+	            data: dailyinfo.amount,
+	            borderColor: 'rgb(255, 255, 132)',
+	            yAxisID: "y-axis-2",
+
+		        },{
+		        	label: '平均量',
+		            data: ave_amount_arr,
+		            borderColor: 'Orange',
+		            yAxisID: "y-axis-2",
+		        }
+	        ],
+
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+                    id: "y-axis-1",
+                    type: "linear",
+                    position: "left",
+                    ticks: {
+                        step:10
+                    },
+                },
+                {
+                    id: "y-axis-2",
+                    type: "linear",
+                    position: "right",
+                    ticks: {
+
+                    },
+                }
+	        ],
+
+	        }
+	    }
+	});
+	function weekamount(day){
+		myamount.config.data.datasets[1].data=dailyinfo.amount.slice(day)
+		myamount.config.data.datasets[0].data=dailyinfo.price.slice(day)
+		myamount.config.data.labels=dailyinfo.day.slice(day)
+		myamount.update();
+
+	}
+	function rollback(){
+		myamount.config.data.datasets[1].data=dailyinfo.amount
+		myamount.config.data.datasets[0].data=dailyinfo.price
+		myamount.config.data.labels=dailyinfo.day
+		myamount.update();
+	}
+
+	//価格と量の関係
+	var priceamount ={{ priceamount|safe }}
+	var priceamount_ctx = document.getElementById('myprice-amount').getContext('2d');
+	var priceamount = new Chart(priceamount_ctx, {
+	    type: 'bar',
+	    data: {
+	    	labels: priceamount.price,
+	        datasets: [{
+	            label: '価-量',
+	            data: priceamount.amount,
+	            borderColor: 'rgb(255, 255, 132)',
+
+	        }],
+
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true
+	                }
+	            }]
+	        }
+	    }
+	});
+
+	 //weight five_weight
+	 var ctx             = document.getElementById('weight').getContext('2d');
+	 var users_data		 ={{ users_data|safe }};
+     var chart = new Chart(ctx, {});
+
+
+
+     var globalconfig    ={
+         // The type of chart we want to create
+         type : 'line',
+         data: {
+                 labels:  users_data.data.date ,
+                 datasets:[{
+                     label: users_data.company_info.company_code + users_data.company_info.company_name ,
+                     borderColor: 'rgb(255, 99, 132)',
+                     data:  users_data.data.fiveday_weight
+                 },
+
+             ]
+         },
+
+         // Configuration options go here
+         options: {}
+     };
+
+     var onecount        = users_data.data.day_weight.reduce((p,x)=>p+((x==1)?1:0),0);
+     var twocount        = users_data.data.day_weight.reduce((p,x)=>p+((x==2)?1:0),0);
+     var minusonecount   = users_data.data.day_weight.reduce((p,x)=>p+((x==-1)?1:0),0);
+     var minustwocount   = users_data.data.day_weight.reduce((p,x)=>p+((x==-2)?1:0),0);
+     var piebarconfig	={
+    		 type: 'bar',
+ 			 data: {
+                          labels: [
+                    '-2: '+minustwocount,
+                    '-1: '+minusonecount,
+                    '1: '+onecount,
+                    '2: '+twocount,
+ 				],
+ 				datasets: [{
+ 					data: [
+ 						minustwocount,
+ 						minusonecount,
+ 						onecount,
+ 						twocount,
+ 					],
+ 					backgroundColor: [
+ 						'rgb(255, 99, 132)',
+ 						'rgb(255, 159, 64)',
+ 						'rgb(255, 205, 86)',
+ 						'rgb(75, 192, 192)',
+ 					],
+ 					label:users_data.company_info.company_code + users_data.company_info.company_name,
+ 				}],
+
+ 			},
+         options: {
+         	responsive: true,
+
+          },
+     }
+     //five weight
+     function fivedayweight(){
+
+    	 globalconfig.data.datasets[0].data=users_data.data.fiveday_weight;
+         chart.config=globalconfig;
+         chart.update();
+     }
+   //day weight
+     function dayweight(){
+
+    	 globalconfig.data.datasets[0].data=users_data.data.day_weight;
+         chart.config=globalconfig;
+         chart.update();
+     }
+     function getpie(){
+    	 piebarconfig.type	='pie'
+    	 piebarconfig.options.plugins={
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        let percentage = (value*100 / sum).toFixed(2)+"%";
+                        return percentage;
+                    },
+                    color: '#fff',
+                }
+            }
+    	 piebarconfig.options.tooltips={
+    			 enabled: false
+    	 }
+	     chart.config		=piebarconfig;
+	     chart.update()
+ 	}
+     function getbar(){
+    	 piebarconfig.type	='bar'
+	     chart.config		=piebarconfig;
+	     chart.update()
+ 	}
+
+    getpie();
+
+  //month data
+	var monthinfo  = {{ monthinfo|safe }}
+	var amountctx = document.getElementById('monthdata').getContext('2d');
+	var monthdata = new Chart(amountctx, {
+	    type: 'line',
+	    data: {
+	        labels: monthinfo.day,
+	        datasets: [
+	        	{
+		        	label: '価',
+		            data: monthinfo.price,
+		            borderColor: 'rgb(255, 99, 132)',
+		            yAxisID: "y-axis-1",
+		        	},
+	        	{
+	            label: '量',
+	            data: monthinfo.amount,
+	            borderColor: 'rgb(255, 255, 132)',
+	            yAxisID: "y-axis-2",
+
+	        },
+	        ],
+
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+                    id: "y-axis-1",
+                    type: "linear",
+                    position: "left",
+                    ticks: {
+                        step:10
+                    },
+                },
+                {
+                    id: "y-axis-2",
+                    type: "linear",
+                    position: "right",
+                    ticks: {
+
+                    },
+                }
+	        ],
+
+	        }
+	    }
+	});
+
+	var maxprice 		=dailyinfo.price.reduce((a,b)=>Math.max(a,b))
+	var minprice 		=dailyinfo.price.reduce((a,b)=>Math.min(a,b))
+	var current_price 	=dailyinfo.price.slice(-1)[0]
+
+	$('.s').html('サマリーsummary<span class="s-balloon">max Down:<span style="color:Green;">-'
+	+((maxprice-current_price)/maxprice*100).toFixed(1)
+	+'% </span><br/>min rise:<span style="color:red">'
+	+((current_price-minprice)/minprice*100).toFixed(1)
+	+'%</span><span>')
+
+	$('.archor-day-weight').on('click',function(){
+		$('.day-weight').toggle('show');
+	});
+</script>
+</html>
+

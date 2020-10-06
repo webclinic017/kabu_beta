@@ -1,0 +1,74 @@
+{% load staticfiles %}
+{% include  'part/backend_jscss.html' %}
+<html>
+<title>タグリスト</title>
+<style>
+
+			a,a:active,a:hover,a:visited {
+		    text-decoration: none;
+		    color: #000
+			}
+			tr:hover{
+			background:green;
+			}
+	</style>
+<script>
+$(document).ready(function() {
+	//removefavorite
+	$('a.system-check').on('click',function(){
+	var message ='本当に'+$(this).attr('newsid')+'checkしますね';
+	if(window.confirm(message)){
+		//information
+		//ajax
+		$.ajax({
+		   type: "GET",
+		   url: "/backend/check/"+$(this).attr('newsid'),
+		   success: function(msg){
+		     console.log(msg);
+
+		   }
+		 });
+
+	}else{
+
+	}
+});
+
+//
+});
+
+</script>
+<body>
+{% include  'part/backend_header.html' %}
+<div class="grid">
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+		<th scope="col">tag id</th>
+		<th scope="col">tag content</th>
+		<th scope="col">関連ニュース数量</th>
+		<th scope="col">区分</th>
+		<th scope="col">関連news一覧</th>
+		<th scope="col">関連commany一覧</th>
+		<th scope="col">trend</th>
+		<th scope="col">change 区分</th>
+	</tr>
+  </thead>
+  <tbody>
+    {% for info in taglist %}
+		 <tr>
+			<td>{{ info.tag_id }}</td>
+			<td><a href="{{ info.url }}" target=" _blank">{{ info.tag_name }}</a></td>
+			<td><a class="system-check" href="javascript:void(0);">{{ info.count }}</a></td>
+			<td><a class="system-check" href="javascript:void(0);">{{ info.kubun_id.name }}</a></td>
+			<td><a href="/backend/showtagnews/{{ info.tag_id }}" target=" _blank">news</a></td>
+			<td><a href="/backend/showcompanyviatag/{{ info.tag_id }}" target=" _blank">Company</a></td>
+			<td><a href="/backend/showNewsAggregateViatag/{{ info.tag_id }}" target=" _blank">trend</a></td>
+			<td><a href="/backend/showtaginfo/{{ info.tag_id }}" target=" _blank">change 区分</a></td>
+          </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<body>
+</html>

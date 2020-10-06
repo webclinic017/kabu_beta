@@ -1,0 +1,39 @@
+{% load staticfiles %}
+{% include  'part/backend_jscss.html' %}
+<html>
+<title>event list</title>
+<style>
+
+			a,a:active,a:hover,a:visited {
+		    text-decoration: none;
+		    color: #000
+			}
+	</style>
+
+<body>
+{% include  'part/backend_header.html' %}
+
+	<div class="grid-container">
+		<table class="table table-sm table-info">
+			<thead>
+				<tr class="header">
+				<th>イベント名</th>
+				<th>開始日</th>
+				<th>終了日</th>
+				</tr>
+			</thead>
+			<tbody>
+			 {% for info in resultlist %}
+		          <tr>
+
+					<td>{{ info.name }}</td>
+					<td>{{ info.start_date }}</td>
+					<td>{{ info.end_date }}</td>
+
+		          </tr>
+		        {% endfor %}
+			</tbody>
+		</table>
+	</div>
+<body>
+</html>
