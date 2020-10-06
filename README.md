@@ -58,5 +58,9 @@ docker-compose exec db bash
 http://kabu.com:9090/front/favoritelist/
 ```
 
+銘柄詳細
+```
+http://kabu.com:9090/front/companyinfo/1811
+```
 
 
