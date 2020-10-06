@@ -14,10 +14,10 @@ import base64
 
 class mailController:
     def __init__(self,subject,to_address):
-        self.from_address           ='zhanglizhu.tokyo@gmail.com'
+        self.from_address           =''
         self.to_address             =to_address
         self.login_emailaddress     =self.from_address
-        self.login_emailpassword    ='tokyo12345'
+        self.login_emailpassword    =''
         self.smtpserver             ='smtp.gmail.com'
 
         self.subject                =subject
