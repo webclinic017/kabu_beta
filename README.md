@@ -45,7 +45,7 @@ docker-compose exec web bash
 
 
 ```
-### 6. ローカル環境のDBへ接続する方法
+### 5. ローカル環境のDBへ接続する方法
 開発環境のpostgreSQLに接続する方法は下記にの通り
 ```
 docker-compose exec db bash
